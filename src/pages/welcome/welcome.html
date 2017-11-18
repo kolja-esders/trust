@@ -3,11 +3,41 @@
   <div class="splash-info">
     <div class="splash-logo"></div>
     <div class="splash-intro">
-      {{ 'WELCOME_INTRO' | translate }}
+      Welcome To Trust App
     </div>
   </div>
+
+  <div class="center" *ngIf="detectedLanguage">
+    Your language is {{detectedLanguage}}
+  </div>
+
+  <div class="speakers-container">
+    <img class="speakers" src="../assets/img/speakers.png">
+  </div>
+
+  <div class="center" *ngIf="isDemoMode">
+    Currently you are running on demo mode. Speech recognition does not work here.
+  </div>
+  <button ion-button full (click)="startListening()" *ngIf="!isDemoMode">Start Listening</button>
+  <button ion-button full (click)="stopListening()" *ngIf="!isDemoMode && isIos()">Stop Listening</button>
+
+  <ion-card *ngIf="!isDemoMode">
+    <ion-card-header>This is what I understood...</ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let match of matches">
+          {{ match }}
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  <!-- <div *ngIf="matches.length" padding> -->
   <div padding>
-    <button ion-button block (click)="signup()">{{ 'SIGNUP' | translate }}</button>
-    <button ion-button block (click)="login()" class="login">{{ 'LOGIN' | translate }}</button>
+    <button ion-button block (click)="apiCall()">API Call Test</button>
+    <button ion-button full (click)="nextScreen()">Next</button>
+  </div>
+  <div class="center"><ion-spinner *ngIf="loading"></ion-spinner></div>
+  <div *ngIf="response && !loading">
+    <pre>{{response}}</pre>
   </div>
 </ion-content>
