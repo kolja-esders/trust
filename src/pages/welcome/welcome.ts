@@ -22,6 +22,8 @@ export class WelcomePage {
   isRecording = false;
   isDemoMode = false;
   detectedLanguage = null;
+  response = '';
+  loading = false;
 
   constructor(
     public navCtrl: NavController,
@@ -76,10 +78,20 @@ export class WelcomePage {
     this.isRecording = true;
   }
 
-  signup() {
-    this.api.validateSomething('').subscribe( (response: any) => {
-      console.log(response);
-    })
+  apiCall() {
+
+    if (this.loading) {
+      return;
+    }
+    this.loading = true;
+    
+    setTimeout(() => {
+      this.api.validateSomething('').subscribe( (response: any) => {
+        this.response = JSON.stringify(response, null, 2);
+        this.loading = false;
+      })
+    }, 500);
+
     // this.navCtrl.push('SignupPage');
   }
 }
