@@ -53,8 +53,8 @@ http://trust-trivago.espend.de/language-extraction?q=Hello%20World
 
 ```
 {
-   "name":"Max",
-   "age":22,
-   "source":"Hello World"
+   "name":"Christopher Probst",
+   "place":"Syria",
+   "age":"26"
 }
 ```
