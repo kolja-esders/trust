@@ -36,6 +36,8 @@ class LanguageController extends Controller
             ]);
         }
 
-        return JsonResponse::create($json);
+        return JsonResponse::create($json, 200, [
+            'Access-Control-Allow-Origin' => '*',
+        ]);
     }
 }

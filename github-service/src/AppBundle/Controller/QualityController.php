@@ -35,9 +35,30 @@ class QualityController extends Controller
         $js = $this->get('app.quality.js_quality_checker')->check($userRepos);
         $php = $this->get('app.php_quality_checker')->check($userRepos);
 
+        if (!isset($php['Comment lines of code']) || $php['Logical lines of code']) {
+            $php['comments'] = round(($php['Comment lines of code'] / $php['Logical lines of code']) * 100, 2);
+        }
+
+        if (!isset($php['Classes']) || $php['Interface']) {
+            $php['interfaces'] = round(($php['Interface'] / $php['Classes']) * 100, 2);
+        }
+
+        if (!isset($php['Classes']) || $php['Interface']) {
+            $php['interfaces'] = round(($php['Interface'] / $php['Classes']) * 100, 2);
+        }
+
+        if (!isset($php['Classes']) || $php['Interface']) {
+            $php['interfaces'] = round(($php['Interface'] / $php['Classes']) * 100, 2);
+        }
+
+        $php['methods_per_class'] = $php['Methods by class'];
+        $php['loc'] = $php['Lines of code'];
+
         return JsonResponse::create([
             'php' => $php,
             'js' => $js,
+        ], 200, [
+            'Access-Control-Allow-Origin' => '*',
         ]);
     }
 }

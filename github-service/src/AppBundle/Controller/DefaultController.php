@@ -39,6 +39,8 @@ class DefaultController extends Controller
 
                 ]
             ],
+        ], 200, [
+            'Access-Control-Allow-Origin' => '*',
         ]);
     }
 
