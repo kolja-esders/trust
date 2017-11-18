@@ -1,5 +1,4 @@
 import spacy
-from geotext import GeoText
 #from spacy.en import English
 
 #nlp = English(entity=True)
