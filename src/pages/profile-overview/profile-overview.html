@@ -1,36 +1,55 @@
-<ion-content padding>
+<ion-content>
+
+  <div class="splash-bg"></div>
 
   <div class="face"></div>
+
   <h1 class="name">Homer Simpson</h1>
+  <div class="center">Your Description Headline</div>
 
-  <ion-card>
-    <ion-card-header>
-      Personal
-    </ion-card-header>
-    <ion-card-content>
+  <div style="height: 1em;"></div>
 
-      <ion-list inset no-lines>
-        <ion-item>22 years old</ion-item>
-        <ion-item>From syria</ion-item>
-      </ion-list>
+  <div class="center">
+    <ion-icon class="check-icon" name="checkmark-circle"></ion-icon>
+    <div>Verified!</div>
+  </div>
 
-    </ion-card-content>
-  </ion-card>
+  <div style="height: 0.5em;"></div>
 
-  <ion-card>
-    <ion-card-header>
-      Hobbies
-    </ion-card-header>
-    <ion-card-content>
+  <div class="container">
 
-      <ion-list inset no-lines>
-        <ion-item>Skateboarding</ion-item>
-        <ion-item>Coding</ion-item>
-        <ion-item>Surfing</ion-item>
-      </ion-list>
+    <h3>Your Evaluation</h3>
 
-    </ion-card-content>
-  </ion-card>
+    <ion-label>Language</ion-label>
+    <div class="bar-border">
+      <div class="bar-inner" style="width: 70%;">&nbsp;</div>
+    </div>
+
+    <div style="height: 1em;"></div>
+
+    <ion-label>Coding Skills</ion-label>
+    <div class="bar-border">
+      <div class="bar-inner" style="width: 40%;">&nbsp;</div>
+    </div>
+
+    <div style="height: 1em;"></div>
+
+    <h3>Your Skills</h3>
+
+  </div>
+
+  <ion-list *ngFor="let skill of skills">
+
+    <ion-item-sliding>
+      <ion-item>
+        {{skill.name}}
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button color="danger" (click)="delete(skill)">Delete</button>
+      </ion-item-options>
+    </ion-item-sliding>
+
+  </ion-list>
 
 </ion-content>
 
