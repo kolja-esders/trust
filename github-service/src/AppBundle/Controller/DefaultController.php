@@ -140,6 +140,10 @@ class DefaultController extends Controller
             $weeks[$week]++;
         }
 
+        if (count($weeks) === 0) {
+            return 0;
+        }
+
         $averagePushesPerWeek = array_sum($weeks) / count($weeks);
 
         return round(($averagePushesPerWeek / max($weeks)) * 10);
