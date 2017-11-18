@@ -1,0 +1,7 @@
+Install spacy
+
+pip3 install -U spacy
+python3 -m spacy download xx
+
+
+
