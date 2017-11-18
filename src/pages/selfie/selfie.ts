@@ -52,6 +52,8 @@ export class SelfiePage {
       // Specify some kind of backup picture
       this.picture = 'assets/img/test.jpg';
     });
+
+    this.navCtrl.push('DescribeYourselfPage');
   }
 
 }
