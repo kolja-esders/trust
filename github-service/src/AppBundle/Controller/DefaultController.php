@@ -20,6 +20,30 @@ class DefaultController extends Controller
 
         return JsonResponse::create([
             'languages' => $this->getLanguages($username),
+            'activity' => [
+                'value' => rand(0, 10),
+                'tabs' => [
+
+                ]
+            ],
+            'popularity' => [
+                'value' => rand(0, 10),
+                'tabs' => [
+
+                ]
+            ],
+            'quality' => [
+                'value' => rand(0, 10),
+                'tabs' => [
+
+                ]
+            ],
+            'rank' => [
+                'value' => rand(0, 10),
+                'tabs' => [
+
+                ]
+            ],
         ]);
     }
 
