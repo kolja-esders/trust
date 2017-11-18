@@ -43,3 +43,8 @@ services:
         class: AppBundle\Quality\PhpQualityChecker
         arguments: ['%kernel.project_dir%']
         public: true
+
+    app.quality.js_quality_checker:
+        class: AppBundle\Quality\JsQualityChecker
+        arguments: ['%kernel.project_dir%']
+        public: true

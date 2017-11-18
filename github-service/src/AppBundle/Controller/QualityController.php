@@ -16,8 +16,12 @@ class QualityController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $result = $this->get('app.php_quality_checker')->check("src");
+        $js = $this->get('app.quality.js_quality_checker')->check("vendor");
+        $php = $this->get('app.php_quality_checker')->check("src");
 
-        return JsonResponse::create($result);
+        return JsonResponse::create([
+            'php' => $php,
+            'js' => $js,
+        ]);
     }
 }
