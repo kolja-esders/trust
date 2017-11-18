@@ -39,6 +39,10 @@ class JsQualityChecker
             return [];
         }
 
+        if (!$xml) {
+            return [];
+        }
+
         $errors = [];
 
         foreach ($xml->xpath('//error') as $error) {
