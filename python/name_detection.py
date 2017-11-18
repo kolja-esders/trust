@@ -11,9 +11,9 @@ import argparse
 def read_file(text):
      s=['Syria','Jordan','Turkey','Pakistan','Lebanon','Iran','Ethiopia','Kenya','Uganda','Democratic Republic of Congo','Chad','Afghanistan','Lake Chad Basin','South Sudan','Somalia','Ghana'] 
      #text='Mein Name ist Thomas Paul und ich bin 22 Jahre alt Kolkata is where I live.'
-     file3=open(text,'r') 
-     lines=file3.readlines()  
-     lines=str(lines)
+     #file3=open(text,'r')
+     #lines=file3.readlines()
+     lines=text
      nlp = spacy.load('xx')
      sent = nlp(lines)
      age=''
@@ -46,17 +46,14 @@ def read_file(text):
          if s[i] in lines:
             place=s[i]
             break        
-     data= {'name': name,'age': age,'place': place}
-     with open('./output.json', 'w') as outfile:
-          json.dump(data,outfile)
-          
+     print(json.dumps({'name': name, 'age': age,'place': place}))
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("jsonfile", help=".json file containing the input text", nargs='?')
     args = parser.parse_args()
-    read_file(args.jsonfile)   
+    read_file(args.jsonfile)
 
 if __name__ == '__main__':
     main()
