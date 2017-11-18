@@ -34,6 +34,7 @@
   <!-- <div *ngIf="matches.length" padding> -->
   <div padding>
     <button ion-button block (click)="apiCall()">API Call Test</button>
+    <button ion-button full (click)="nextScreen()">Next</button>
   </div>
   <div class="center"><ion-spinner *ngIf="loading"></ion-spinner></div>
   <div *ngIf="response && !loading">
