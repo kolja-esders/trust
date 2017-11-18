@@ -94,4 +94,8 @@ export class WelcomePage {
 
     // this.navCtrl.push('SignupPage');
   }
+
+  nextScreen() {
+    this.navCtrl.push('SelfiePage');
+  }
 }
