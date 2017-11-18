@@ -14,32 +14,28 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request, $username)
     {
-        $client = $this->get('app.client.github_client');
-
-        $response = $client->get('/users/' . $username);
-
         return JsonResponse::create([
             'languages' => $this->getLanguages($username),
             'activity' => [
-                'value' => rand(0, 10),
+                'value' => $activity = $this->getActivities($username),
                 'tabs' => [
 
                 ]
             ],
             'popularity' => [
-                'value' => rand(0, 10),
+                'value' => $popularity = $this->getPopularity($username),
                 'tabs' => [
 
                 ]
             ],
             'quality' => [
-                'value' => rand(0, 10),
+                'value' => $quality = round(($popularity + $activity) / 2),
                 'tabs' => [
 
                 ]
             ],
             'rank' => [
-                'value' => rand(0, 10),
+                'value' => round(($activity + $popularity + $quality) / 3),
                 'tabs' => [
 
                 ]
@@ -49,7 +45,6 @@ class DefaultController extends Controller
 
     /**
      * @param $username
-     * @param $client
      * @return array
      */
     private function getLanguages($username)
@@ -77,5 +72,58 @@ class DefaultController extends Controller
         arsort($languages);
 
         return $languages;
+    }
+
+
+    /**
+     * @param $username
+     * @return int
+     */
+    private function getPopularity($username)
+    {
+        $client = $this->get('app.client.github_client');
+
+        $repositories = $client->get('users/' . $username . '/repos?per_page=150');
+
+        $my = array_values(array_filter($repositories, function(array $repo) {
+            return !isset($repo['fork']) || (int) $repo['fork'] <= 0;
+        }));
+
+        return round((count($my) / count($repositories) * 10));
+    }
+
+    /**
+     * @param $username
+     * @return float
+     */
+    private function getActivities($username)
+    {
+        $client = $this->get('app.client.github_client');
+
+        $events = array_values(array_filter($client->get('/users/' . $username . '/events?per_page=150'), function(array $item) {
+            return isset($item['type']) && $item['type'] === 'PushEvent';
+        }));
+
+        $weeks = [];
+
+        foreach($events as $event) {
+            if (!isset($event['created_at'])) {
+                continue;
+            }
+
+            $date = new \DateTime($event['created_at']);
+
+            $week = $date->format('y-W');
+
+            if (!isset($weeks[$week])) {
+                $weeks[$week] = 0;
+            }
+
+            $weeks[$week]++;
+        }
+
+        $averagePushesPerWeek = array_sum($weeks) / count($weeks);
+
+        return round(($averagePushesPerWeek / max($weeks)) * 10);
     }
 }
