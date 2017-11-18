@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the DescribeYourselfPage page.
@@ -15,7 +16,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class DescribeYourselfPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  profileImage: string;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage) {
   }
 
 
@@ -25,6 +28,10 @@ export class DescribeYourselfPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DescribeYourselfPage');
+
+    this.storage.get('profileImage').then((val) => {
+      this.profileImage = val;
+    });
   }
 
 }

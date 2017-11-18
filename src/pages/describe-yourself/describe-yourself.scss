@@ -1,14 +1,13 @@
 page-describe-yourself {
-    .picture {
-      margin: 0 auto;
-      color: red;
-      border-radius: 100px;
-      width: 200px;
-      height: 200px;
-      background: url('../assets/img/Refugee.jpg');
-      background-size: cover;
-    }
-
+  .profileImage {
+    display: block;
+    margin: 0 auto;
+    border-radius: 50%;
+    margin-top: 80px;
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+  }
 
     .text {
       text-align: center;
