@@ -18,6 +18,10 @@ export class ProfileOverviewPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
+  triggerEvaluation() {
+    this.navCtrl.push('LanguageEvaluationPage');
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfileOverviewPage');
   }
