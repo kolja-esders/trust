@@ -20,7 +20,7 @@ export class DescribeYourselfPage {
 
 
   triggerConfirmation() {
-    this.navCtrl.push('WelcomePage');
+    this.navCtrl.push('ProfileOverviewPage');
   }
 
   ionViewDidLoad() {
