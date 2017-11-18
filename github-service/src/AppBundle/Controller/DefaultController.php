@@ -30,7 +30,7 @@ class DefaultController extends Controller
             'quality' => [
                 'value' => $quality = round(($popularity + $activity) / 2),
                 'tabs' => [
-                    'languages' => array_keys(array_slice($this->getLanguages($username), 0, 3)),
+                    'languages' => array_keys($this->getLanguages($username)),
                 ]
             ],
             'rank' => [
