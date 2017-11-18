@@ -84,7 +84,7 @@ export class WelcomePage {
       return;
     }
     this.loading = true;
-    
+
     setTimeout(() => {
       this.api.validateSomething('').subscribe( (response: any) => {
         this.response = JSON.stringify(response, null, 2);

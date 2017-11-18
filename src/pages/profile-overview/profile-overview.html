@@ -1,0 +1,43 @@
+<ion-content padding>
+
+  <div class="face"></div>
+  <h1 class="name">Homer Simpson</h1>
+
+  <ion-card>
+    <ion-card-header>
+      Personal
+    </ion-card-header>
+    <ion-card-content>
+
+      <ion-list inset no-lines>
+        <ion-item>22 years old</ion-item>
+        <ion-item>From syria</ion-item>
+      </ion-list>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Hobbies
+    </ion-card-header>
+    <ion-card-content>
+
+      <ion-list inset no-lines>
+        <ion-item>Skateboarding</ion-item>
+        <ion-item>Coding</ion-item>
+        <ion-item>Surfing</ion-item>
+      </ion-list>
+
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <button block class="eval-btn" ion-button (click)="triggerEvaluation()">
+      {{ 'EVALUATE_SKILLS' | translate }}
+    </button>
+  </ion-toolbar>
+</ion-footer>
