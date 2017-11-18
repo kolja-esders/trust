@@ -17,19 +17,24 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class WelcomePage {
 
-  matches: String[];
+  matches: String[] = [];
   isRecording = false;
   isDemoMode = false;
+  detectedLanguage = null;
 
   constructor(
     public navCtrl: NavController,
     private speechRecognition: SpeechRecognition,
     private plt: Platform,
     private cd: ChangeDetectorRef) {
-
   }
 
   ionViewDidLoad() {
+    this.detectedLanguage = navigator.language;
+    if (!this.detectedLanguage) {
+      console.log("WARNING: Language could not be detected. Set to 'en-US'");
+      this.detectedLanguage = "en-US";
+    }
     this.getPermission();
   }
 
@@ -58,9 +63,11 @@ export class WelcomePage {
 
   startListening() {
     let options = {
-      language: 'en-US' // TODO: This should be arbitrary...
+      language: this.detectedLanguage,
+      showPopup: false,  // Android only
+      showPartial: true // iOS only
     };
-    this.speechRecognition.startListening().subscribe(matches => {
+    this.speechRecognition.startListening(options).subscribe(matches => {
       this.matches = matches;
       this.cd.detectChanges();
     });
