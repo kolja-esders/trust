@@ -18,6 +18,11 @@ export class DescribeYourselfPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
+
+  triggerConfirmation() {
+    this.navCtrl.push('WelcomePage');
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad DescribeYourselfPage');
   }
