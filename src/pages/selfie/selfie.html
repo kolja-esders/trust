@@ -1,27 +1,18 @@
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>Selfie</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
 <ion-content>
 
-  <div class="overlay">
-    <div class="inner"></div>
+  <div class="wrap">
+    <div class="overlay">
+      <div class="inner"></div>
+    </div>
+    <section class="remainder" padding>
+      <span class="selfie-emoji">🤳</span>
+    </section>
   </div>
-  <section class="remainder" padding>
-    <span class="selfie-emoji">🤳</span>
-  </section>
-
 </ion-content>
-
 
 <ion-footer>
   <ion-toolbar>
-    <button block class="eval-btn" ion-button (click)="snap()">
+    <button large full class="eval-btn" ion-button (click)="snap()">
       {{ 'TAKE_SELFIE' | translate }}
     </button>
   </ion-toolbar>
