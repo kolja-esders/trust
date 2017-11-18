@@ -38,3 +38,8 @@ services:
         class: AppBundle\Client\GithubClient
         public: true
         arguments: ['@guzzle.client.github', '@cache.app', '%github_token%']
+
+    app.php_quality_checker:
+        class: AppBundle\Quality\PhpQualityChecker
+        arguments: ['%kernel.project_dir%']
+        public: true

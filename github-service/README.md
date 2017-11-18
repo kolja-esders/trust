@@ -1,5 +1,13 @@
 # Backend
 
+## Python
+
+```
+sudo apt-get install python3-pip
+sudo pip3 install -U spacy
+sudo python3 -m spacy download xx
+```
+
 ## API
 
 ```
