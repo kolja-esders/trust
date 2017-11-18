@@ -3,6 +3,7 @@ import { IonicPage, NavController } from 'ionic-angular';
 import { Platform } from 'ionic-angular';
 import { SpeechRecognition } from '@ionic-native/speech-recognition';
 import { ChangeDetectorRef } from '@angular/core';
+import { Api } from '../../providers/api/api';
 
 /**
  * The Welcome Page is a splash page that quickly describes the app,
@@ -26,7 +27,8 @@ export class WelcomePage {
     public navCtrl: NavController,
     private speechRecognition: SpeechRecognition,
     private plt: Platform,
-    private cd: ChangeDetectorRef) {
+    private cd: ChangeDetectorRef,
+    private api: Api) {
   }
 
   ionViewDidLoad() {
@@ -75,6 +77,9 @@ export class WelcomePage {
   }
 
   signup() {
-    this.navCtrl.push('SignupPage');
+    this.api.validateSomething('').subscribe( (response: any) => {
+      console.log(response);
+    })
+    // this.navCtrl.push('SignupPage');
   }
 }
