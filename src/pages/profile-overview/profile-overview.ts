@@ -15,7 +15,24 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ProfileOverviewPage {
 
+  skills = [];
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    // TODO: Mock-Up
+    this.skills = [
+      {'name': 'Java'},
+      {'name': 'GoLang'},
+      {'name': 'Python 2.7'},
+      {'name': 'Cobol'},
+      {'name': 'ASM'},
+      {'name': 'Micro Programming'},
+    ]
+  }
+
+  delete(item) {
+    console.log(item);
+    let index = this.skills.indexOf(item);
+    this.skills.splice(index, 1);
   }
 
   triggerEvaluation() {
