@@ -43,13 +43,11 @@ def read_file(text):
      place=''
      data=''
      for i in range(len(s)):
-         print(s[i])
          if s[i] in lines:
-            print(s[i])
             place=s[i]
             break        
      data= {'name': name,'age': age,'place': place}
-     with open('./data.json', 'w') as outfile:
+     with open('./output.json', 'w') as outfile:
           json.dump(data,outfile)
           
 
