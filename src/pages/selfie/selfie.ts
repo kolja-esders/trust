@@ -14,7 +14,7 @@ export class SelfiePage {
 
   readonly cameraPreviewOpts: CameraPreviewOptions = {
     x: (window.screen.width / 2) - 150,
-    y: 78,
+    y: 50,
     width: 300,
     height: 300,
     camera: 'front',

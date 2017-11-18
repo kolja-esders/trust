@@ -21,7 +21,6 @@ export class DescribeYourselfPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage) {
   }
 
-
   triggerConfirmation() {
     this.navCtrl.push('ProfileOverviewPage');
   }

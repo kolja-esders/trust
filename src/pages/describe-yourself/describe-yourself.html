@@ -11,32 +11,36 @@
       <img class="speakers" src="../assets/img/speakers.png">
   </div>
 
-<ion-list>
+  <ion-list>
 
-  <ion-item>
-    <ion-label>Name</ion-label>
-    <ion-input type="text"></ion-input>
-  </ion-item>
+    <ion-item>
+      <ion-label>Name</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
 
-  <ion-item>
-    <ion-label>Age</ion-label>
-    <ion-input type="text"></ion-input>
-  </ion-item>
+    <ion-item>
+      <ion-label>Age</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
 
-  <ion-item>
-    <ion-label>Hobbies</ion-label>
-    <ion-input type="text"></ion-input>
-  </ion-item>
+    <ion-item>
+      <ion-label>Hobbies</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
 
-  <ion-item>
-    <ion-label>Home country</ion-label>
-    <ion-input type="text"></ion-input>
-  </ion-item>
+    <ion-item>
+      <ion-label>Home country</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
 
-</ion-list>
-
-  <div padding>
-    <button ion-button full (click)="triggerConfirmation()">Confirm</button>
-  </div>
+  </ion-list>
 
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <button large full class="eval-btn" ion-button (click)="triggerConfirmation()">
+      Confirm
+    </button>
+  </ion-toolbar>
+</ion-footer>
