@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 import { CameraPreview, CameraPreviewPictureOptions, CameraPreviewOptions } from '@ionic-native/camera-preview';
 
 @IonicPage()
@@ -29,7 +30,7 @@ export class SelfiePage {
     quality: 85
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private cameraPreview: CameraPreview) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private cameraPreview: CameraPreview, private storage: Storage) {
   }
 
   ionViewDidLoad() {
@@ -41,19 +42,29 @@ export class SelfiePage {
       },
       (err) => {
         console.log(err)
-    });
+      });
+  }
+
+  ionViewWillEnter() {
+    this.cameraPreview.show();
+  }
+
+  ionViewWillLeave() {
+    this.cameraPreview.hide();
   }
 
   snap() {
     this.cameraPreview.takePicture(this.pictureOpts).then((imageData) => {
-      this.picture = 'data:image/jpeg;base64,' + imageData;
+      this.storage.set('profileImage', 'data:image/jpeg;base64,' + imageData).then((val) => {
+        this.navCtrl.push('DescribeYourselfPage');
+      });
     }, (err) => {
       console.log(err);
       // Specify some kind of backup picture
-      this.picture = 'assets/img/test.jpg';
+      this.storage.set('profileImage', '../assets/img/profile.jpg').then((val) => {
+        this.navCtrl.push('DescribeYourselfPage');
+      });
     });
-
-    this.navCtrl.push('DescribeYourselfPage');
   }
 
 }
