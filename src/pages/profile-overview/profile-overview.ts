@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the ProfileOverviewPage page.
@@ -17,7 +18,9 @@ export class ProfileOverviewPage {
 
   skills = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  profileImage: string;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage) {
     // TODO: Mock-Up
     this.skills = [
       {'name': 'Java'},
@@ -41,6 +44,10 @@ export class ProfileOverviewPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfileOverviewPage');
+
+    this.storage.get('profileImage').then((val) => {
+      this.profileImage = val;
+    });
   }
 
 }
