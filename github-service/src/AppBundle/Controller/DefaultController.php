@@ -15,7 +15,6 @@ class DefaultController extends Controller
     public function indexAction(Request $request, $username)
     {
         return JsonResponse::create([
-            'languages' => $this->getLanguages($username),
             'activity' => [
                 'value' => $activity = $this->getActivities($username),
                 'tabs' => [
@@ -25,13 +24,13 @@ class DefaultController extends Controller
             'popularity' => [
                 'value' => $popularity = $this->getPopularity($username),
                 'tabs' => [
-
+                    'stars' => $this->getStars($username),
                 ]
             ],
             'quality' => [
                 'value' => $quality = round(($popularity + $activity) / 2),
                 'tabs' => [
-
+                    'languages' => array_keys(array_slice($this->getLanguages($username), 0, 3)),
                 ]
             ],
             'rank' => [
@@ -90,6 +89,25 @@ class DefaultController extends Controller
         }));
 
         return round((count($my) / count($repositories) * 10));
+    }
+
+    /**
+     * @param $username
+     * @return int
+     */
+    private function getStars($username)
+    {
+        $client = $this->get('app.client.github_client');
+
+        $repositories = $client->get('users/' . $username . '/repos?per_page=150');
+
+        $my = array_values(array_filter($repositories, function(array $repo) {
+            return !isset($repo['fork']) || (int) $repo['fork'] <= 0;
+        }));
+
+        return array_sum(array_map(function (array $repo) {
+            return isset($repo['stargazers_count']) ? $repo['stargazers_count'] : 0;
+        }, $my));
     }
 
     /**
