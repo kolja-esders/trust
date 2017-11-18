@@ -1,3 +1,48 @@
 page-selfie {
+  ion-content {
+    background-color: transparent!important;
+  }
+
+  .test {
+    width: 200px;
+    height: 200px;
+  }
+
+  .overlay {
+    //border: 1px solid #fff;
+    //border-radius: 200px;
+    //margin: 0 auto;
+    width: 100%;
+    height: 344px;
+    //background-color: red;
+
+    .inner {
+      margin: 0 auto;
+      width: 100%;
+      height: 344px;
+
+      background: radial-gradient(circle at center, transparent 150px, rgba(255,255,255,1) 100px);
+      pointer-events: none;
+    
+      //background-color: transparent;
+      //clip-path: circle(60px at center);
+    }
+  }
+
+  .remainder {
+    position: absolute;
+    top: 344px;
+    height: calc(100% - 344px);
+    background-color: #fff;
+    display: block;
+    width: 100%;
+  
+  }
+
+  .selfie-emoji {
+    display: block;
+    font-size: 8rem;
+    text-align: center;
+  }
 
 }
