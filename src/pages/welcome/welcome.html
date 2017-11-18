@@ -6,11 +6,18 @@
       Welcome To Trust App
     </div>
   </div>
+
+  <div class="center" *ngIf="detectedLanguage">
+    Your language is {{detectedLanguage}}
+  </div>
+
   <div class="speakers-container">
     <img class="speakers" src="../assets/img/speakers.png">
   </div>
-  <div *ngIf="isDemoMode" align="center">Currently you are running on demo mode. Speech recognition does not work here
-    .</div>
+
+  <div class="center" *ngIf="isDemoMode">
+    Currently you are running on demo mode. Speech recognition does not work here.
+  </div>
   <button ion-button full (click)="startListening()" *ngIf="!isDemoMode">Start Listening</button>
   <button ion-button full (click)="stopListening()" *ngIf="!isDemoMode && isIos()">Stop Listening</button>
 
@@ -24,7 +31,7 @@
       </ion-list>
     </ion-card-content>
   </ion-card>
-  <div padding>
-    <button ion-button block (click)="signup()">Start Evaluation</button>
+  <div *ngIf="matches.length" padding>
+    <button ion-button block (click)="signup()">That was correct. Proceed!</button>
   </div>
 </ion-content>
