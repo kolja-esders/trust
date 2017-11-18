@@ -19,6 +19,7 @@ export class VideoConferencePage {
   slides: Slide[];
   showSkip = true;
   dir: string = 'ltr';
+  streaming: false;
 
   constructor(public navCtrl: NavController, public menu: MenuController, translate: TranslateService, public platform: Platform) {
     this.webrtc = new SimpleWebRTC({
