@@ -28,7 +28,7 @@ class PhpQualityChecker
             ->setArguments(["{$this->rootDir}/phpmetrics.phar", "$this->rootDir/$dir"])
             ->getProcess();
 
-
+        $process->setTimeout(180);
         $process->run();
 
         preg_match_all('#\s+(.*)\s+([\d\.]+)\n#i', $process->getOutput(), $result, PREG_SET_ORDER);
