@@ -9,7 +9,7 @@ import argparse
  
 
 def read_file(text):
-     s=['Syria','Jordan','Turkey','Pakistan','Lebanon','Iran','Ethiopia','Kenya','Uganda','Democratic Republic of Congo','Chad','Afghanistan','Lake Chad Basin','South Sudan','Somalia','Ghana'] 
+     s=['Syria','Jordan','Turkey','Pakistan','Lebanon','Iran','Ethiopia','Kenya','Uganda','Democratic Republic of Congo','Chad','Afghanistan','Lake Chad Basin','South Sudan','Somalia','Ghana','India'] 
      #text='Mein Name ist Thomas Paul und ich bin 22 Jahre alt Kolkata is where I live.'
      #file3=open(text,'r') 
      #lines=file3.readlines()  
@@ -25,7 +25,6 @@ def read_file(text):
      for i in range(len(hobbies)):        
         if hobbies[i].lower() in lines.lower():
            if hobbies[i]=='football':
-                  
                   h=hobbies[i]+' '+'playing' 
            else:
                   h=h+','+hobbies[i]
@@ -38,13 +37,16 @@ def read_file(text):
      flag=0
      
      name=''
+
      for token in sent:
         if flag==0:
            if token.ent_type_ == 'PER':
+            if 'I'!=str(token):
               name=str(token)
               flag=flag+1
         elif flag==1:
            if token.ent_type_ == 'PER':
+            if 'I'!=str(token):
               name=name+' '+str(token)
               break
         else:
