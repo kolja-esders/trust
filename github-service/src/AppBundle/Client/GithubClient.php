@@ -61,11 +61,15 @@ class GithubClient
             return $cache->get();
         }
 
-        $content = json_decode($this->client->request('GET', $url, [
-            'headers' => [
-                'Authorization' => 'Token ' . $this->token,
-            ]
-        ])->getBody(), true);
+        try {
+            $content = json_decode($this->client->request('GET', $url, [
+                'headers' => [
+                    'Authorization' => 'Token ' . $this->token,
+                ]
+            ])->getBody(), true);
+        } catch (\Exception $e) {
+            $content = [];
+        }
 
         $this->cachePool->save($cache->set($content)->expiresAfter(360000));
 

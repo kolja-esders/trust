@@ -14,23 +14,39 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request, $username)
     {
+        $pr = $this->filterActivityByType($username, ['PullRequestEvent', 'PullRequestEventCreateEvent', 'PullRequestReviewCommentEvent']);
+        $push = $this->filterActivityByType($username, ['PushEvent', 'WatchEvent', 'ForkEvent', 'DeleteEvent', 'CreateEvent', 'IssuesEvent']);
+        $comment = $this->filterActivityByType($username, ['IssueCommentEvent', 'IssueCommentEvent', 'PullRequestReviewCommentEvent']);
+
+        $tabs = [
+            'pull_request' => $pr,
+            'push' => $push,
+            'comments' => $comment,
+        ];
+
+        $acts = array_filter($tabs, function ($v) {
+            return $v >= 5;
+        });
+
+        $ceil = 0;
+        if ($acts) {
+            $ceil = ceil(array_sum($acts) / count($acts));
+        }
+
         return JsonResponse::create([
             'activity' => [
-                'value' => $activity = $this->getActivities($username),
-                'tabs' => [
-
-                ]
+                'tabs' => $tabs,
+                'value' => $activity = $ceil,
             ],
             'popularity' => [
                 'value' => $popularity = $this->getPopularity($username),
-                'tabs' => [
-                    'stars' => $this->getStars($username),
-                ]
+                'tabs' => $this->getStars($username),
             ],
             'quality' => [
                 'value' => $quality = round(($popularity + $activity) / 2),
                 'tabs' => [
                     'languages' => array_keys($this->getLanguages($username)),
+                    'notification_by_day' => $this->notificationsPerDay($username),
                 ]
             ],
             'rank' => [
@@ -84,13 +100,13 @@ class DefaultController extends Controller
     {
         $client = $this->get('app.client.github_client');
 
-        $repositories = $client->get('users/' . $username . '/repos?per_page=150');
+        $events = [];
 
-        $my = array_values(array_filter($repositories, function(array $repo) {
-            return !isset($repo['fork']) || (int) $repo['fork'] <= 0;
-        }));
+        foreach (range(1, 4) as $page) {
+            $events = array_merge($events, $client->get('/users/' . $username . '/received_events?per_page=150&page=' . $page));
+        }
 
-        return round((count($my) / count($repositories) * 10));
+        return $this->getWeeksCalc($events);
     }
 
     /**
@@ -107,26 +123,87 @@ class DefaultController extends Controller
             return !isset($repo['fork']) || (int) $repo['fork'] <= 0;
         }));
 
-        return array_sum(array_map(function (array $repo) {
+        $result['stars'] = array_sum(array_map(function (array $repo) {
             return isset($repo['stargazers_count']) ? $repo['stargazers_count'] : 0;
         }, $my));
+
+        $user = $client->get('users/' . $username);
+
+        $result['followers'] = isset($user['followers']) ? $user['followers'] : 0;
+
+        return $result;
     }
 
     /**
-     * @param $username
-     * @return float
+     * @param array $events
+     * @param string|array $event
+     * @return float|int
      */
-    private function getActivities($username)
-    {
+    private function filterActivityByType($username, $event) {
         $client = $this->get('app.client.github_client');
 
-        $events = array_values(array_filter($client->get('/users/' . $username . '/events?per_page=150'), function(array $item) {
-            return isset($item['type']) && $item['type'] === 'PushEvent';
+        $events = [];
+
+        foreach (range(1, 4) as $page) {
+            $events = array_merge($events, $client->get('/users/' . $username . '/events?per_page=150&page=' . $page));
+        }
+
+        $events = array_values(array_filter($events, function(array $item) use ($event, &$foo) {
+            return isset($item['type']) && in_array($item['type'], (array) $event, true);
         }));
 
+        return $this->getWeeksCalc($events);
+    }
+
+    /**
+     * @param array $events
+     * @param string|array $event
+     * @return float|int
+     */
+    private function notificationsPerDay($username) {
+        $client = $this->get('app.client.github_client');
+
+        $events = [];
+
+        foreach (range(1, 4) as $page) {
+            $events = array_merge($events, $client->get('/users/' . $username . '/received_events?per_page=150&page=' . $page));
+        }
+        $days = [];
+
+        foreach ($events as $event) {
+            if (!isset($event['created_at'])) {
+                continue;
+            }
+
+            $date = new \DateTime($event['created_at']);
+
+            $day = $date->format('y-z');
+
+            if (!isset($days[$day])) {
+                $days[$day] = 0;
+            }
+
+            $days[$day]++;
+        }
+
+        if (count($days) === 0) {
+            return 0;
+        }
+
+        return round(array_sum($days) / count($days));
+    }
+
+
+    /**
+     * @param $event
+     * @param $events
+     * @return float|int
+     */
+    private function getWeeksCalc(array $events)
+    {
         $weeks = [];
 
-        foreach($events as $event) {
+        foreach ($events as $event) {
             if (!isset($event['created_at'])) {
                 continue;
             }
