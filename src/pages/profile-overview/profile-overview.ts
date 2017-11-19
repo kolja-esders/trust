@@ -63,8 +63,11 @@ export class ProfileOverviewPage {
     });
 
     this.storage.get('evaluation').then( (val) => {
-      console.log("WE GOT IT:", val);
       this.skills = [];
+      if (!val) {
+        return;
+      }
+      console.log("WE GOT IT:", val);
       let skills_unformatted = val["quality"]["tabs"]["languages"];
       for (let skill of skills_unformatted) {
         this.skills.push({name: skill});
