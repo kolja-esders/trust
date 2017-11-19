@@ -25,10 +25,6 @@ export class DescribeYourselfPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, private speechRecognition: SpeechRecognition, private api: Api, private cd: ChangeDetectorRef) {
   }
 
-  triggerConfirmation() {
-    this.navCtrl.push('ProfileOverviewPage');
-  }
-
   getPermission() {
     this.speechRecognition.hasPermission()
       .then((hasPermission: boolean) => {
@@ -71,8 +67,6 @@ export class DescribeYourselfPage {
       //this.navCtrl.push('ProfileOverviewPage');
     });
     this.isRecording = true;
-
-
   }
 
   ionViewDidLoad() {
@@ -80,11 +74,6 @@ export class DescribeYourselfPage {
 
     this.storage.get('profileImage').then((val) => {
       this.profileImage = val;
-    });
-
-    this.storage.get('user').then((val) => {
-      this.user = val;
-      this.name = 'name' in this.user ? this.user['name'] : 'Unknown name';
     });
 
     this.detectedLanguage = navigator.language;
