@@ -12,6 +12,11 @@ export class Api {
     console.log(this.url);
   }
 
+  getLanguageQuality(text: string) {
+    let urlComponent = encodeURIComponent(text);
+    return this.get('http://172.31.100.53:8080/doc-similarity?q=' + urlComponent);
+  }
+
   validateSomething(text: string) {
     let urlComponent = encodeURIComponent(text);
     return this.get('http://172.31.100.53:8080/language-extraction?q=' + urlComponent);
