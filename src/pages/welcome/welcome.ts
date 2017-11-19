@@ -19,7 +19,7 @@ import { Api } from '../../providers/api/api';
 })
 export class WelcomePage {
 
-  matches: String[] = [];
+  matches: string[] = [];
   isRecording = false;
   isDemoMode = false;
   detectedLanguage = null;
@@ -76,9 +76,10 @@ export class WelcomePage {
     this.speechRecognition.startListening(options).subscribe(matches => {
       this.matches = matches;
       this.cd.detectChanges();
-      if (matches.length > 0) {
-        this.apiCall()
-      }
+      this.navCtrl.push('SelfiePage');
+    }, errors => {
+      console.log(errors);
+      this.navCtrl.push('SelfiePage');
     });
     this.isRecording = true;
   }
