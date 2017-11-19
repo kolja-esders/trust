@@ -1,6 +1,14 @@
 page-language-evaluation {
   text-align: center;
 
+  h1 {
+    font-weight: 200;
+  }
+
+  .text {
+    margin-bottom: 50px;
+  }
+
   .profileImage {
     display: block;
     margin: 0 auto;
@@ -9,5 +17,9 @@ page-language-evaluation {
     width: 160px;
     height: 160px;
     object-fit: cover;
+  }
+
+  .lift {
+    margin-top: 50px;
   }
 }
