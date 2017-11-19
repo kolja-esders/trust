@@ -34,6 +34,10 @@ export class Api {
     return this.get('http://172.31.100.65:8080/api/user/'+userId);
   }
 
+  evaluateGitHubAccount(accountName: string) {
+    return this.get('http://trust-trivago.espend.de/github-stats/'+accountName);
+  }
+
   updateUser(userId: string, name: string, country: string, email: string, skills: string[]) {
     let body = {
       name: name,

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Storage} from '@ionic/storage';
+import { Api } from '../../providers/api/api';
 
 /**
  * Generated class for the GithublinkPage page.
@@ -16,8 +18,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class GithublinkPage {
 
   gitHubName: string = "";
+  loading: boolean = false;
+  final_rank = null;
+  skills = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private api: Api) {
+
   }
 
   ionViewDidLoad() {
@@ -25,7 +31,16 @@ export class GithublinkPage {
   }
 
   pushLink() {
-    console.log(this.gitHubName);
+    if (this.loading) {
+      return;
+    }
+    this.loading = true;
+    this.api.evaluateGitHubAccount(this.gitHubName).subscribe( (response) => {
+      console.log(response);
+      this.loading = false;
+      this.final_rank = response.rank.value;
+      this.skills = response.quality.tabs.languages;
+    });
   }
 
 }
