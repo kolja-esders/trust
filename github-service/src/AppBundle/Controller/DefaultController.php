@@ -33,6 +33,8 @@ class DefaultController extends Controller
             $ceil = ceil(array_sum($acts) / count($acts));
         }
 
+        sleep(2);
+
         return JsonResponse::create([
             'activity' => [
                 'tabs' => $tabs,
