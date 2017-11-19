@@ -1,0 +1,45 @@
+<ion-content padding>
+
+<img class="profileImage" width="200" height="200" src="{{profileImage}}" style="border-radius:50%; object-fit: cover;"/>
+
+<h1 class="text">Hey there!</h1>
+
+<h4 class="text">Tell us about yourself, e.g. your name, age, and where you are from.</h4>
+
+  <div class="speakers-container" (click)="speechInput()">
+    <img class="speakers" src="../assets/img/speakers.png">
+  </div>
+
+  <ion-list>
+
+    <ion-item>
+      <ion-label>Name</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Age</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Hobbies</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Home country</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+
+  </ion-list>
+
+</ion-content>
+
+<!--<ion-footer>-->
+  <!--<ion-toolbar>-->
+    <!--<button large full class="eval-btn" ion-button (click)="triggerConfirmation()">-->
+      <!--Confirm-->
+    <!--</button>-->
+  <!--</ion-toolbar>-->
+<!--</ion-footer>-->

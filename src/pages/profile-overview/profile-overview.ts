@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the ProfileOverviewPage page.
@@ -15,15 +16,51 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ProfileOverviewPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  skills = [];
+  name: string;
+  country: string;
+  age: string;
+  user = {};
+  evaluated = false;
+
+  profileImage: string;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage) {
+    // TODO: Mock-Up
+    this.skills = [
+      {'name': 'Java'},
+      {'name': 'GoLang'},
+      {'name': 'Python 2.7'},
+      {'name': 'Cobol'},
+      {'name': 'ASM'},
+      {'name': 'Micro Programming'},
+    ]
+  }
+
+  delete(item) {
+    console.log(item);
+    let index = this.skills.indexOf(item);
+    this.skills.splice(index, 1);
   }
 
   triggerEvaluation() {
-    this.navCtrl.push('LanguageEvaluationPage');
+    this.navCtrl.push('GithublinkPage');
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfileOverviewPage');
+
+    this.storage.get('profileImage').then((val) => {
+      this.profileImage = val;
+    });
+
+    this.storage.get('user').then((val) => {
+      console.log(val);
+      this.user = val;
+      this.name = 'name' in this.user ? this.user['name'] : 'Unknown';
+      this.age = 'age' in this.user ? this.user['age'] : 'Unknown';
+      this.country = 'place' in this.user ? this.user['place'] : 'Unknown';
+    });
   }
 
 }

@@ -1,4 +1,7 @@
 page-welcome {
+  .center {
+    text-align: center;
+  }
   .splash-bg {
     position: relative;
     background: url('../assets/img/splashbg.png') no-repeat transparent;
@@ -42,5 +45,12 @@ page-welcome {
     &.activated {
       background-color: rgb(220, 220, 220);
     }
+  }
+  .speakers-container {
+    text-align: center;
+    padding: 1em;
+  }
+  img.speakers {
+    height: 3em;
   }
 }

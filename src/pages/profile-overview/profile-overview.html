@@ -1,42 +1,74 @@
-<ion-content padding>
+<ion-content>
 
-  <div class="face"></div>
-  <h1 class="name">Homer Simpson</h1>
+  <div class="splash-bg"></div>
+
+  <img class="profileImage" width="200" height="200" src="{{profileImage}}" style="border-radius:50%; object-fit: cover;"/>
+
+  <h1 class="name">Hi {{name}}</h1>
+  <!--<div class="center">Your Description Headline</div>-->
+
+  <div style="height: 1em;"></div>
+
+  <div class="center">
+    <ion-icon class="check-icon" name="checkmark-circle"></ion-icon>
+    <div>Verified!</div>
+  </div>
+
+  <div style="height: 0.5em;"></div>
 
   <ion-card>
     <ion-card-header>
-      Personal
+      Personal details
     </ion-card-header>
+
     <ion-card-content>
-
-      <ion-list inset no-lines>
-        <ion-item>22 years old</ion-item>
-        <ion-item>From syria</ion-item>
-      </ion-list>
-
+      <div><b>Name:</b> {{name}}</div>
+      <div><b>Age:</b> {{age}}</div>
+      <div><b>Origin country:</b> {{place}}</div>
+      <!--<div>Hobbies: {{}}</div>-->
     </ion-card-content>
   </ion-card>
 
-  <ion-card>
-    <ion-card-header>
-      Hobbies
-    </ion-card-header>
-    <ion-card-content>
+  <div ng-if="evaluated" class="container">
 
-      <ion-list inset no-lines>
-        <ion-item>Skateboarding</ion-item>
-        <ion-item>Coding</ion-item>
-        <ion-item>Surfing</ion-item>
-      </ion-list>
+    <h3>Your Evaluation</h3>
 
-    </ion-card-content>
-  </ion-card>
+    <ion-label>Language</ion-label>
+    <div class="bar-border">
+      <div class="bar-inner" style="width: 70%;">&nbsp;</div>
+    </div>
+
+    <div style="height: 1em;"></div>
+
+    <ion-label>Coding Skills</ion-label>
+    <div class="bar-border">
+      <div class="bar-inner" style="width: 40%;">&nbsp;</div>
+    </div>
+
+    <div style="height: 1em;"></div>
+
+    <h3>Your Skills</h3>
+
+  </div>
+
+  <ion-list ng-if="evaluated" *ngFor="let skill of skills">
+
+    <ion-item-sliding>
+      <ion-item>
+        {{skill.name}}
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button color="danger" (click)="delete(skill)">Delete</button>
+      </ion-item-options>
+    </ion-item-sliding>
+
+  </ion-list>
 
 </ion-content>
 
 <ion-footer>
   <ion-toolbar>
-    <button block class="eval-btn" ion-button (click)="triggerEvaluation()">
+    <button block large class="eval-btn" ion-button (click)="triggerEvaluation()">
       {{ 'EVALUATE_SKILLS' | translate }}
     </button>
   </ion-toolbar>

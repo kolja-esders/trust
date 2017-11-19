@@ -1,0 +1,20 @@
+<ion-content>
+
+  <div class="wrap">
+    <div class="overlay">
+      <div class="inner"></div>
+    </div>
+    <section class="remainder" padding>
+      <span class="selfie-emoji">🤳</span>
+      <h1>{{name}}</h1>
+    </section>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <button large full class="eval-btn" ion-button (click)="snap()">
+      {{ 'TAKE_SELFIE' | translate }}
+    </button>
+  </ion-toolbar>
+</ion-footer>
