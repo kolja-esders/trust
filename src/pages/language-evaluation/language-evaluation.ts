@@ -78,6 +78,9 @@ export class LanguageEvaluationPage {
       });
     }, errors => {
       console.log(errors);
+      this.storage.set('lang', 'TESTTESTTEST').then((val) => {
+        this.navCtrl.push('GithublinkPage');
+      });
     });
     this.isRecording = true;
   }

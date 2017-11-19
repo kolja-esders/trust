@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import {Api} from '../../providers/api/api';
 
 /**
  * Generated class for the ProfileOverviewPage page.
@@ -28,16 +29,8 @@ export class ProfileOverviewPage {
   lang_loaded = false;
   user_loaded = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage) {
-    // TODO: Mock-Up
-    this.skills = [
-      {'name': 'Java'},
-      {'name': 'GoLang'},
-      {'name': 'Python 2.7'},
-      {'name': 'Cobol'},
-      {'name': 'ASM'},
-      {'name': 'Micro Programming'},
-    ]
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, private api: Api) {
+
   }
 
   delete(item) {
@@ -56,6 +49,12 @@ export class ProfileOverviewPage {
 
     this.storage.get('profileImage').then((val) => {
       this.profileImage = val;
+    });
+
+    this.storage.get('all-done').then( (val) => {
+      if (!val) {
+        return;
+      }
     });
 
     this.storage.get('user').then((val) => {
@@ -99,6 +98,58 @@ export class ProfileOverviewPage {
       }
       this.skills_loaded = true;
     });
+
+    if (this.user_loaded && this.lang_loaded && this.skills_loaded) {
+      this.pushUser();
+    }
+
+  }
+
+  pushUser() {
+
+    this.storage.get('user-id').then( (val) => {
+
+      let userId = null;
+      let isUpdate = true;
+      console.log("Value from storage", val);
+      if (!val) {
+        console.log("No update, create new user");
+        isUpdate = false;
+      }
+      else {
+        userId = val;
+        console.log("User available - update");
+        console.log("userId is ", userId);
+      }
+
+      if (isUpdate) {
+        console.log("userId is ", userId);
+        this.api.updateUser(
+          userId,
+          this.user["name"],
+          this.user["country"],
+          this.user["email"],
+          this.skills
+        )
+          .subscribe((response: any) => {
+            console.log(response);
+          });
+      }
+      else {
+        this.api.createNewUser(
+          this.user["name"],
+          this.user["country"],
+          this.user["country"],
+          this.skills
+        )
+          .subscribe((response: any) => {
+            console.log(response);
+            this.storage.set('user-id', response);
+          });
+      }
+
+    });
+
   }
 
 }
