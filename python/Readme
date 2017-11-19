@@ -1,7 +1,19 @@
 Install spacy
 
-pip3 install -U spacy
-python3 -m spacy download xx
+pip install -U spacy
+python -m spacy download xx
+
+
+Install numpy
+
+
+sudo pip3 install numpy
+
+sudo pip3 install scipy
+
+sudo pip3 install sklearn
+
+
 
 
 
