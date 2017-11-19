@@ -7,32 +7,11 @@
 <h4 class="text">Tell us about yourself, e.g. your name, age, and where you are from.</h4>
 
   <div class="speakers-container" (click)="speechInput()">
-    <img class="speakers" src="../assets/img/speakers.png">
+    <img *ngIf="!loading" class="speakers" src="../assets/img/speakers.png">
+    <ion-spinner *ngIf="loading"></ion-spinner>
   </div>
 
-  <ion-list>
-
-    <ion-item>
-      <ion-label>Name</ion-label>
-      <ion-input type="text"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Age</ion-label>
-      <ion-input type="text"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Hobbies</ion-label>
-      <ion-input type="text"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Home country</ion-label>
-      <ion-input type="text"></ion-input>
-    </ion-item>
-
-  </ion-list>
+  <button full ion-button *ngIf="isDemoMode" (click)="mockInput()">Test Input</button>
 
 </ion-content>
 
