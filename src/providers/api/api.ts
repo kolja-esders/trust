@@ -17,6 +17,36 @@ export class Api {
     return this.get('http://172.31.100.53:8080/language-extraction?q=' + urlComponent);
   }
 
+  createNewUser(name: string, country: string, email: string, skills: string[]) {
+    let body = {
+      name: name,
+      country: country,
+      email: email,
+      skills: skills
+    };
+    return this.post(
+      'http://172.31.100.65:8080/api/user',
+      JSON.stringify(body)
+    );
+  }
+
+  getUser(userId: string) {
+    return this.get('http://172.31.100.65:8080/api/user/'+userId);
+  }
+
+  updateUser(userId: string, name: string, country: string, email: string, skills: string[]) {
+    let body = {
+      name: name,
+      country: country,
+      email: email,
+      skills: skills
+    };
+    return this.put(
+      'http://172.31.100.65:8080/api/user/'+userId,
+      JSON.stringify(body)
+    );
+  }
+
   get(request_url: string, params?: any, reqOpts?: any) {
     console.log(this.url);
     if (!reqOpts) {
@@ -36,12 +66,20 @@ export class Api {
     return this.http.get(request_url, reqOpts);
   }
 
-  post(endpoint: string, body: any, reqOpts?: any) {
-    return this.http.post(this.url + '/' + endpoint, body, reqOpts);
+  post(endpoint: string, body: any) {
+    return this.http.post(
+      endpoint,
+      body,
+      {headers: {'Content-Type': 'application/json'}}
+    );
   }
 
-  put(endpoint: string, body: any, reqOpts?: any) {
-    return this.http.put(this.url + '/' + endpoint, body, reqOpts);
+  put(endpoint: string, body: any) {
+    return this.http.put(
+      endpoint,
+      body,
+      {headers: {'Content-Type': 'application/json'}}
+    );
   }
 
   delete(endpoint: string, reqOpts?: any) {
