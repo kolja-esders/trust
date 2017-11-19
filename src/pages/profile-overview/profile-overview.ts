@@ -47,7 +47,7 @@ export class ProfileOverviewPage {
     this.navCtrl.push('LanguageEvaluationPage');
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     console.log('ionViewDidLoad ProfileOverviewPage');
 
     this.storage.get('profileImage').then((val) => {
@@ -60,6 +60,18 @@ export class ProfileOverviewPage {
       this.name = this.user['name'] || 'Unknown';
       this.age = this.user['age'] || 'Unknown';
       this.country = this.user['place'] || 'Unknown';
+    });
+
+    this.storage.get('evaluation').then( (val) => {
+      this.skills = [];
+      if (!val) {
+        return;
+      }
+      console.log("WE GOT IT:", val);
+      let skills_unformatted = val["quality"]["tabs"]["languages"];
+      for (let skill of skills_unformatted) {
+        this.skills.push({name: skill});
+      }
     });
   }
 
