@@ -27,7 +27,6 @@ def read_file(text):
            if hobbies[i]=='football':
                   
                   h=hobbies[i]+' '+'playing' 
-                  print(h)
            else:
                   h=h+','+hobbies[i]
 ## Age of the person
