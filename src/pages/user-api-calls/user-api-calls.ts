@@ -23,7 +23,22 @@ export class UserApiCallsPage {
   skills: string = "";
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private api: Api, private storage: Storage) {
-    this.api = api;
+
+  }
+
+  getUser() {
+    this.storage.get('user-id').then( (val) => {
+
+      if (!val) {
+        console.log("No user id available. abort.");
+        return;
+      }
+
+      this.api.getUser(val).subscribe( (response) => {
+        console.log("User Information", response);
+      });
+
+    });
   }
 
   pushUser() {
