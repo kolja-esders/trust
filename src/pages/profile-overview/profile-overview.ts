@@ -17,6 +17,11 @@ import { Storage } from '@ionic/storage';
 export class ProfileOverviewPage {
 
   skills = [];
+  name: string;
+  country: string;
+  age: string;
+  user = {};
+  evaluated = false;
 
   profileImage: string;
 
@@ -47,6 +52,14 @@ export class ProfileOverviewPage {
 
     this.storage.get('profileImage').then((val) => {
       this.profileImage = val;
+    });
+
+    this.storage.get('user').then((val) => {
+      console.log(val);
+      this.user = val;
+      this.name = 'name' in this.user ? this.user['name'] : 'Unknown';
+      this.age = 'age' in this.user ? this.user['age'] : 'Unknown';
+      this.country = 'place' in this.user ? this.user['place'] : 'Unknown';
     });
   }
 
