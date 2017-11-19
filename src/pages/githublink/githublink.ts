@@ -41,6 +41,7 @@ export class GithublinkPage {
       this.skills = response["quality"]["tabs"]["languages"];
       this.storage.set('evaluation', response).then( () => {
         this.loading = false;
+        this.navCtrl.push('ProfileOverviewPage');
       });
     });
   }
