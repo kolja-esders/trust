@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, MenuController, NavController, Platform } from 'ionic-angular';
+import {Api} from '../../providers/api/api';
+import {Storage} from '@ionic/storage';
 
 import { TranslateService } from '@ngx-translate/core';
 import SimpleWebRTC from 'simplewebrtc';
@@ -22,8 +24,9 @@ export class VideoConferencePage {
   dir: string = 'ltr';
   streaming = false;
   webrtc = null;
+  video_is_streaming = false;
 
-  constructor(public navCtrl: NavController, public menu: MenuController, translate: TranslateService, public platform: Platform) {
+  constructor(public navCtrl: NavController, public menu: MenuController, translate: TranslateService, public platform: Platform, private api: Api, private storage: Storage) {
     this.webrtc = new SimpleWebRTC({
       // the id/element dom element that will hold "our" video
       localVideoEl: 'localVideo',
@@ -37,6 +40,18 @@ export class VideoConferencePage {
   ionViewDidLoad() {
     // the root left menu should be disabled on the video-conference page
 
+  }
+
+  getMatches() {
+    this.storage.get('user-id').then( (val) => {
+      if (!val) {
+        console.log("NO VAL",val);
+        return;
+      }
+      this.api.getMatches(val).subscribe( (response) => {
+        console.log(response);
+      });
+    });
   }
 
   startStream() {

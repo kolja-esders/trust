@@ -43,6 +43,10 @@ export class ProfileOverviewPage {
     this.navCtrl.push('LanguageEvaluationPage');
   }
 
+  startLiveChat() {
+    this.navCtrl.push('VideoConferencePage');
+  }
+
   ionViewDidEnter() {
     this.lang_loaded = false;
     console.log('ionViewDidLoad ProfileOverviewPage');
@@ -52,6 +56,7 @@ export class ProfileOverviewPage {
     });
 
     this.storage.get('all-done').then( (val) => {
+      console.log("ALL DONE VAL",val);
       if (!val) {
         return;
       }
@@ -65,43 +70,52 @@ export class ProfileOverviewPage {
         return;
       }
       this.user_loaded = true;
-      console.log("CRASH NOW");
       this.user = val;
       this.name = this.user['name'] || 'Unknown';
       this.age = this.user['age'] || 'Unknown';
       this.country = this.user['place'] || 'Unknown';
-    });
 
-    this.storage.get('lang').then( (val) => {
-      // Mock percentages
-      this.lang_loaded = false;
-      if (!val) {
-        console.log("LANG not found");
-        return;
-      }
-      this.lang_loaded = true;
-      let coding_percent = 0.9;
-      let language_percent = 0.4;
-      this.coding_style = {width: (coding_percent * 100)+"%"};
-      this.language_style = {width: (language_percent * 100)+"%"};
-    });
+      this.storage.get('lang').then( (val) => {
+        // Mock percentages
+        this.lang_loaded = false;
+        if (!val) {
+          console.log("LANG not found");
+          return;
+        }
+        this.lang_loaded = true;
+        let coding_percent = 0.9;
+        let language_percent = 0.4;
+        this.coding_style = {width: (coding_percent * 100)+"%"};
+        this.language_style = {width: (language_percent * 100)+"%"};
 
-    this.storage.get('evaluation').then( (val) => {
-      this.skills = [];
-      this.skills_loaded = false;
-      if (!val) {
-        return;
-      }
-      let skills_unformatted = val["quality"]["tabs"]["languages"];
-      for (let skill of skills_unformatted) {
-        this.skills.push({name: skill});
-      }
-      this.skills_loaded = true;
-    });
+        this.storage.get('evaluation').then( (val) => {
+          this.skills = [];
+          this.skills_loaded = false;
+          if (!val) {
+            return;
+          }
+          let skills_unformatted = val["quality"]["tabs"]["languages"];
+          for (let skill of skills_unformatted) {
+            this.skills.push({name: skill});
+          }
+          this.skills_loaded = true;
 
-    if (this.user_loaded && this.lang_loaded && this.skills_loaded) {
-      this.pushUser();
-    }
+          if (this.user_loaded) {
+            console.log("XX user loaded");
+            if (this.lang_loaded) {
+              console.log("XX lang loadede");
+              if (this.skills_loaded) {
+                console.log("XX skills loaded");
+                this.pushUser();
+              }
+            }
+          }
+
+        });
+
+      });
+
+    });
 
   }
 
@@ -129,7 +143,7 @@ export class ProfileOverviewPage {
           this.user["name"],
           this.user["country"],
           this.user["email"],
-          this.skills
+          this.skills.map(function(e) {return e["name"];})
         )
           .subscribe((response: any) => {
             console.log(response);
@@ -140,7 +154,7 @@ export class ProfileOverviewPage {
           this.user["name"],
           this.user["country"],
           this.user["country"],
-          this.skills
+          this.skills.map(function(e) {return e["name"];})
         )
           .subscribe((response: any) => {
             console.log(response);

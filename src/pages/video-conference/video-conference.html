@@ -1,10 +1,18 @@
 <ion-header>
 
   <ion-navbar>
-    <button ion-button (click)="startStream()" *ngIf="!streaming">Stream starten</button>
-    <button ion-button (click)="stopStream()" *ngIf="streaming">Beenden</button>
+    <button ion-button (click)="startStream()" *ngIf="video_is_streaming && !streaming">Stream starten</button>
+    <button ion-button (click)="stopStream()" *ngIf="video_is_streaming && streaming">Beenden</button>
+    <button ion-button (click)="getMatches()" *ngIf="!video_is_streaming">Get Matches</button>
   </ion-navbar>
 
 </ion-header>
-<div width="100%" id="remotesVideos"></div>
-<div class="my-video-container"><video width="100%" id="localVideo"></video></div>
+
+<div *ngIf="video_is_streaming">
+  <div width="100%" id="remotesVideos"></div>
+  <div class="my-video-container"><video width="100%" id="localVideo"></video></div>
+</div>
+
+<div *ngIf="!video_is_streaming">
+  TEST
+</div>

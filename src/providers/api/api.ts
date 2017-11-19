@@ -30,13 +30,17 @@ export class Api {
       skills: skills
     };
     return this.post(
-      'http://172.31.100.65:8080/api/user',
+      'https://trust.strivecdn.com:8080/api/user',
       JSON.stringify(body)
     );
   }
 
   getUser(userId: string) {
-    return this.get('http://172.31.100.65:8080/api/user/'+userId);
+    return this.get('https://trust.strivecdn.com:8080/api/user/'+userId);
+  }
+
+  getMatches(userId: string) {
+    return this.get('https://trust.strivecdn.com:8080/api/matches/'+userId);
   }
 
   evaluateGitHubAccount(accountName: string) {
@@ -51,7 +55,7 @@ export class Api {
       skills: skills
     };
     return this.put(
-      'http://172.31.100.65:8080/api/user/'+userId,
+      'https://trust.strivecdn.com:8080/api/user/'+userId,
       JSON.stringify(body)
     );
   }
