@@ -1,4 +1,13 @@
 page-language-evaluation {
   text-align: center;
 
+  .profileImage {
+    display: block;
+    margin: 0 auto;
+    border-radius: 50%;
+    margin-top: 80px;
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+  }
 }
