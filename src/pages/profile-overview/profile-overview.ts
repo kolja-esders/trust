@@ -66,6 +66,7 @@ export class ProfileOverviewPage {
         return;
       }
       this.user_loaded = true;
+      console.log("CRASH NOW");
       this.user = val;
       this.name = this.user['name'] || 'Unknown';
       this.age = this.user['age'] || 'Unknown';
