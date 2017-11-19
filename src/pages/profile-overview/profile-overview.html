@@ -56,20 +56,25 @@
       No skills set available...
     </div>
 
-    <ion-label>Coding Skills</ion-label>
-    <div class="bar-border">
-      <div class="bar-inner" [(ngStyle)]="coding_style">&nbsp;</div>
+    <div *ngIf="skills_loaded">
+      <ion-label>Coding Skills</ion-label>
+      <div class="bar-border">
+        <div class="bar-inner" [(ngStyle)]="coding_style">&nbsp;</div>
+      </div>
     </div>
 
   </div>
 
-  <ion-list ng-if="evaluated" *ngFor="let skill of skills">
+  <div *ngIf="skills_loaded">
+    <ion-list ng-if="evaluated" *ngFor="let skill of skills">
 
-    <ion-item>
+      <ion-item>
         {{skill.name}}
-    </ion-item>
+      </ion-item>
 
-  </ion-list>
+    </ion-list>
+  </div>
+
 
 </ion-content>
 
