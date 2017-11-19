@@ -2,10 +2,12 @@
 import re
 import json
 import argparse
+import os
+
 def read_file(text): 
-     negative=open('./negatives.txt','r') 
+     negative=open(os.path.dirname(__file__) + '/negatives.txt','r')
      negative_vector=negative.readlines()
-     positive=open('./positives.txt','r') 
+     positive=open(os.path.dirname(__file__) + '/positives.txt','r')
      positive_vector=positive.readlines()
      lines=text
      lines=str(lines)
