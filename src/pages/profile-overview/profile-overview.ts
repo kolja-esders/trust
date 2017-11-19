@@ -44,7 +44,7 @@ export class ProfileOverviewPage {
   }
 
   triggerEvaluation() {
-    this.navCtrl.push('GithublinkPage');
+    this.navCtrl.push('LanguageEvaluationPage');
   }
 
   ionViewDidLoad() {
