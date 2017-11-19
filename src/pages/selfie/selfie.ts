@@ -35,6 +35,7 @@ export class SelfiePage {
   }
 
   ionViewDidLoad() {
+    this.storage.set('all-done', false);
     console.log('ionViewDidLoad SelfiePage');
 
     this.cameraPreview.startCamera(this.cameraPreviewOpts).then(
