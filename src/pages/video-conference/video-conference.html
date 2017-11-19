@@ -8,11 +8,18 @@
 
 </ion-header>
 
-<div *ngIf="video_is_streaming">
-  <div width="100%" id="remotesVideos"></div>
-  <div class="my-video-container"><video width="100%" id="localVideo"></video></div>
-</div>
+<ion-content>
 
-<div *ngIf="!video_is_streaming">
-  TEST
-</div>
+  <div *ngIf="video_is_streaming">
+    <div width="100%" id="remotesVideos"></div>
+    <div class="my-video-container"><video width="100%" id="localVideo"></video></div>
+  </div>
+
+  <div *ngIf="!video_is_streaming">
+    <ion-list>
+      <ion-item *ngFor="let match of matches" (click)="startVideoCall(match['room_id'])"
+      >{{match["match"]["company"]}}</ion-item>
+    </ion-list>
+  </div>
+
+</ion-content>

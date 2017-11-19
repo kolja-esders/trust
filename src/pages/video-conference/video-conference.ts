@@ -25,8 +25,19 @@ export class VideoConferencePage {
   streaming = false;
   webrtc = null;
   video_is_streaming = false;
+  matches: any;
 
   constructor(public navCtrl: NavController, public menu: MenuController, translate: TranslateService, public platform: Platform, private api: Api, private storage: Storage) {
+
+  }
+
+  ionViewDidLoad() {
+    // the root left menu should be disabled on the video-conference page
+
+  }
+
+  startVideoCall(roomId: string) {
+    this.video_is_streaming = true;
     this.webrtc = new SimpleWebRTC({
       // the id/element dom element that will hold "our" video
       localVideoEl: 'localVideo',
@@ -35,11 +46,7 @@ export class VideoConferencePage {
       // immediately ask for camera access
       autoRequestMedia: true
     });
-  }
-
-  ionViewDidLoad() {
-    // the root left menu should be disabled on the video-conference page
-
+    this.startStream(roomId);
   }
 
   getMatches() {
@@ -49,15 +56,17 @@ export class VideoConferencePage {
         return;
       }
       this.api.getMatches(val).subscribe( (response) => {
-        console.log(response);
+        this.matches = response;
+        console.log(this.matches);
+        console.log(this.matches.length);
       });
     });
   }
 
-  startStream() {
+  startStream(roomId: string) {
     this.streaming = true;
-    console.log("start stream");
-    this.webrtc.joinRoom('13371337');
+    console.log("start stream ", roomId);
+    this.webrtc.joinRoom(roomId);
   }
 
   stopStream() {

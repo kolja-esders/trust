@@ -83,8 +83,8 @@ export class ProfileOverviewPage {
           return;
         }
         this.lang_loaded = true;
-        let coding_percent = 0.9;
-        let language_percent = 0.4;
+        let coding_percent = 0.84;
+        let language_percent = 0.94;
         this.coding_style = {width: (coding_percent * 100)+"%"};
         this.language_style = {width: (language_percent * 100)+"%"};
 

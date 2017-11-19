@@ -42,13 +42,6 @@
         <div class="bar-inner" [(ngStyle)]="language_style">&nbsp;</div>
       </div>
 
-      <div style="height: 1em;"></div>
-
-      <ion-label>Coding Skills</ion-label>
-      <div class="bar-border">
-        <div class="bar-inner" [(ngStyle)]="coding_style">&nbsp;</div>
-      </div>
-
     </div>
 
     <div>
@@ -61,6 +54,11 @@
 
     <div *ngIf="!skills_loaded">
       No skills set available...
+    </div>
+
+    <ion-label>Coding Skills</ion-label>
+    <div class="bar-border">
+      <div class="bar-inner" [(ngStyle)]="coding_style">&nbsp;</div>
     </div>
 
   </div>
