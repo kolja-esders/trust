@@ -13,7 +13,8 @@ export class Api {
   }
 
   validateSomething(text: string) {
-    return this.get('http://trust-trivago.espend.de/language-extraction?q=Hello%20World');
+    let urlComponent = encodeURIComponent(text);
+    return this.get('http://172.31.100.53:8080/language-extraction?q=' + urlComponent);
   }
 
   get(request_url: string, params?: any, reqOpts?: any) {
