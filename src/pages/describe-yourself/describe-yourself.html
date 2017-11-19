@@ -2,13 +2,12 @@
 
 <img class="profileImage" width="200" height="200" src="{{profileImage}}" style="border-radius:50%; object-fit: cover;"/>
 
-<h3 class="text">Hello Patrick</h3>
+<h1 class="text">Hi {{name}}</h1>
 
-<h4 class="text">Tell us about you, e.g. your name, age and your hobbies or where you are from.</h4>
+<h4 class="text">Tell us about yourself, e.g. your age, hobbies, and where you are from.</h4>
 
-
-  <div class="speakers-container">
-      <img class="speakers" src="../assets/img/speakers.png">
+  <div class="speakers-container" (click)="speechInput()">
+    <img class="speakers" src="../assets/img/speakers.png">
   </div>
 
   <ion-list>

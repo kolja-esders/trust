@@ -11,6 +11,8 @@ import { CameraPreview, CameraPreviewPictureOptions, CameraPreviewOptions } from
 export class SelfiePage {
 
   picture: string;
+  name: string;
+  user = {};
 
   readonly cameraPreviewOpts: CameraPreviewOptions = {
     x: (window.screen.width / 2) - 150,
@@ -35,6 +37,11 @@ export class SelfiePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SelfiePage');
+
+    this.storage.get('user').then((val) => {
+      this.user = val;
+      this.name = 'name' in this.user ? this.user['name'] : 'Unknown name';
+    });
 
     this.cameraPreview.startCamera(this.cameraPreviewOpts).then(
       (res) => {

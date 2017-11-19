@@ -70,12 +70,20 @@ export class Api {
     return this.http.get(request_url, reqOpts);
   }
 
-  post(endpoint: string, body: any, reqOpts?: any) {
-    return this.http.post(this.url + '/' + endpoint, body, reqOpts);
+  post(endpoint: string, body: any) {
+    return this.http.post(
+      endpoint,
+      body,
+      {headers: {'Content-Type': 'application/json'}}
+    );
   }
 
-  put(endpoint: string, body: any, reqOpts?: any) {
-    return this.http.put(this.url + '/' + endpoint, body, reqOpts);
+  put(endpoint: string, body: any) {
+    return this.http.put(
+      endpoint,
+      body,
+      {headers: {'Content-Type': 'application/json'}}
+    );
   }
 
   delete(endpoint: string, reqOpts?: any) {

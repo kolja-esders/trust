@@ -1,0 +1,10 @@
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button (click)="startStream()" *ngIf="!streaming">Stream starten</button>
+    <button ion-button (click)="stopStream()" *ngIf="streaming">Beenden</button>
+  </ion-navbar>
+
+</ion-header>
+<div width="100%" id="remotesVideos"></div>
+<div class="my-video-container"><video width="100%" id="localVideo"></video></div>

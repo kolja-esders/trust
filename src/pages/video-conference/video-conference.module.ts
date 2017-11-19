@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { TutorialPage } from './tutorial';
+import { VideoConferencePage } from './video-conference';
 import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
-    TutorialPage,
+    VideoConferencePage,
   ],
   imports: [
-    IonicPageModule.forChild(TutorialPage),
+    IonicPageModule.forChild(VideoConferencePage),
     TranslateModule.forChild()
   ],
   exports: [
-    TutorialPage
+    VideoConferencePage
   ]
 })
-export class TutorialPageModule { }
+export class VideoConferencePageModule { }
