@@ -71,8 +71,10 @@ http://trust-trivago.espend.de/sentiment-analysis?q=Mir geht es schlecht
 
 ```
 http://trust-trivago.espend.de/doc-similarity?q=Das Wetter ist gut aber der Schnee schneit vom blauen Himmel
+http://trust-trivago.espend.de/doc-similarity?q=Das Essen bei Trivago ist sehr gut
 ```
 
 ```
 {"acc":0.3952123486027508,"Level":"B1"}
+{"acc":0.21674839277792168, "Level":"A1"}
 ```
