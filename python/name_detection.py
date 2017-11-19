@@ -15,7 +15,7 @@ def read_file(text):
      #lines=file3.readlines()  
      lines=text
      lines=str(lines)
-     nlp = spacy.load('xx')
+     nlp = spacy.load('en')
      sent = nlp(lines)
      age=''
      h=''
@@ -40,15 +40,10 @@ def read_file(text):
 
      for token in sent:
         if flag==0:
-           if token.ent_type_ == 'PER':
+           if token.ent_type_ == 'PERSON':
             if 'I'!=str(token):
               name=str(token)
               flag=flag+1
-        elif flag==1:
-           if token.ent_type_ == 'PER':
-            if 'I'!=str(token):
-              name=name+' '+str(token)
-              break
         else:
               break
       
