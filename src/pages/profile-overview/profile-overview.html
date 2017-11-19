@@ -14,40 +14,54 @@
     <div>Verified!</div>
   </div>
 
-  <div style="height: 0.5em;"></div>
+  <div ng-if="evaluated" class="container">
 
-  <ion-card>
-    <ion-card-header>
-      Personal details
-    </ion-card-header>
+    <div style="height: 0.5em;"></div>
 
-    <ion-card-content>
+    <h3>Personal details</h3>
+
+    <div *ngIf="user_loaded">
       <div><b>Name:</b> {{name}}</div>
       <div><b>Age:</b> {{age}}</div>
       <div><b>Origin country:</b> {{country}}</div>
       <!--<div>Hobbies: {{}}</div>-->
-    </ion-card-content>
-  </ion-card>
+    </div>
 
-  <div ng-if="evaluated" class="container">
-
-    <h3>Your Evaluation</h3>
-
-    <ion-label>Language</ion-label>
-    <div class="bar-border">
-      <div class="bar-inner" style="width: 70%;">&nbsp;</div>
+    <div *ngIf="!user_loaded">
+      No user data available...
     </div>
 
     <div style="height: 1em;"></div>
 
-    <ion-label>Coding Skills</ion-label>
-    <div class="bar-border">
-      <div class="bar-inner" style="width: 40%;">&nbsp;</div>
+    <h3>Your Evaluation</h3>
+
+    <div *ngIf="lang_loaded">
+
+      <ion-label>Language</ion-label>
+      <div class="bar-border">
+        <div class="bar-inner" [(ngStyle)]="language_style">&nbsp;</div>
+      </div>
+
+      <div style="height: 1em;"></div>
+
+      <ion-label>Coding Skills</ion-label>
+      <div class="bar-border">
+        <div class="bar-inner" [(ngStyle)]="coding_style">&nbsp;</div>
+      </div>
+
+    </div>
+
+    <div>
+      No evaluation available...
     </div>
 
     <div style="height: 1em;"></div>
 
     <h3>Your Skills</h3>
+
+    <div *ngIf="!skills_loaded">
+      No skills set available...
+    </div>
 
   </div>
 

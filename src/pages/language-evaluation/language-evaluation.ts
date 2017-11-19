@@ -43,8 +43,11 @@ export class LanguageEvaluationPage {
 
     this.storage.get('user').then((val) => {
       console.log(val);
+      if (!val) {
+        return;
+      }
       this.user = val;
-      this.name = 'name' in this.user ? this.user['name'] : 'Unknown';
+      this.name = this.user['name'] || 'Unknown';
     });
 
     this.getPermission();
@@ -65,7 +68,7 @@ export class LanguageEvaluationPage {
       this.cd.detectChanges();
       console.log(matches);
 
-      this.api.getLanguageQuality(matches[0] as string).subscribe( (response: any) => {
+      this.api.getLanguageQuality(matches[0]).subscribe( (response: any) => {
         this.response = JSON.stringify(response, null, 2);
         console.log(response);
         this.storage.set('lang', response).then((val) => {

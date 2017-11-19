@@ -21,9 +21,12 @@ export class ProfileOverviewPage {
   country: string;
   age: string;
   user = {};
-  evaluated = false;
-
+  skills_loaded = false;
+  coding_style = {"width": "0%"};
+  language_style = {"width": "0%"};
   profileImage: string;
+  lang_loaded = false;
+  user_loaded = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage) {
     // TODO: Mock-Up
@@ -48,6 +51,7 @@ export class ProfileOverviewPage {
   }
 
   ionViewDidEnter() {
+    this.lang_loaded = false;
     console.log('ionViewDidLoad ProfileOverviewPage');
 
     this.storage.get('profileImage').then((val) => {
@@ -55,23 +59,44 @@ export class ProfileOverviewPage {
     });
 
     this.storage.get('user').then((val) => {
+
       console.log(val);
+      this.user_loaded = false;
+      if (!val) {
+        return;
+      }
+      this.user_loaded = true;
       this.user = val;
       this.name = this.user['name'] || 'Unknown';
       this.age = this.user['age'] || 'Unknown';
       this.country = this.user['place'] || 'Unknown';
     });
 
+    this.storage.get('lang').then( (val) => {
+      // Mock percentages
+      this.lang_loaded = false;
+      if (!val) {
+        console.log("LANG not found");
+        return;
+      }
+      this.lang_loaded = true;
+      let coding_percent = 0.9;
+      let language_percent = 0.4;
+      this.coding_style = {width: (coding_percent * 100)+"%"};
+      this.language_style = {width: (language_percent * 100)+"%"};
+    });
+
     this.storage.get('evaluation').then( (val) => {
       this.skills = [];
+      this.skills_loaded = false;
       if (!val) {
         return;
       }
-      console.log("WE GOT IT:", val);
       let skills_unformatted = val["quality"]["tabs"]["languages"];
       for (let skill of skills_unformatted) {
         this.skills.push({name: skill});
       }
+      this.skills_loaded = true;
     });
   }
 
