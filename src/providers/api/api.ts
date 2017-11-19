@@ -40,7 +40,7 @@ export class Api {
   }
 
   evaluateGitHubAccount(accountName: string) {
-    return this.get('http://trust-trivago.espend.de/github-stats/'+accountName);
+    return this.get('http://172.31.100.53:8080/github-stats/'+accountName);
   }
 
   updateUser(userId: string, name: string, country: string, email: string, skills: string[]) {
