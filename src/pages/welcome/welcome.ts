@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { Platform } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 import { SpeechRecognition } from '@ionic-native/speech-recognition';
 import { ChangeDetectorRef } from '@angular/core';
 import { Api } from '../../providers/api/api';
@@ -30,6 +31,7 @@ export class WelcomePage {
     private speechRecognition: SpeechRecognition,
     private plt: Platform,
     private cd: ChangeDetectorRef,
+    private storage: Storage,
     private api: Api) {
   }
 
@@ -74,25 +76,26 @@ export class WelcomePage {
     this.speechRecognition.startListening(options).subscribe(matches => {
       this.matches = matches;
       this.cd.detectChanges();
+      if (matches.length > 0) {
+        this.apiCall()
+      }
     });
     this.isRecording = true;
   }
 
   apiCall() {
-
     if (this.loading) {
       return;
     }
     this.loading = true;
 
-    setTimeout(() => {
-      this.api.validateSomething('').subscribe( (response: any) => {
-        this.response = JSON.stringify(response, null, 2);
-        this.loading = false;
-      })
-    }, 500);
-
-    // this.navCtrl.push('SignupPage');
+    this.api.validateSomething(this.matches[0] as string).subscribe( (response: any) => {
+      this.response = JSON.stringify(response, null, 2);
+      this.storage.set('user', response).then((val) => {
+        this.navCtrl.push('SelfiePage');
+      });
+      this.loading = false;
+    });
   }
 
   nextScreen() {

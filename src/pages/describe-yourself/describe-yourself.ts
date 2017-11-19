@@ -17,6 +17,8 @@ import { Storage } from '@ionic/storage';
 export class DescribeYourselfPage {
 
   profileImage: string;
+  user = {};
+  name: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage) {
   }
@@ -25,11 +27,20 @@ export class DescribeYourselfPage {
     this.navCtrl.push('ProfileOverviewPage');
   }
 
+  speechInput() {
+  
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad DescribeYourselfPage');
 
     this.storage.get('profileImage').then((val) => {
       this.profileImage = val;
+    });
+
+    this.storage.get('user').then((val) => {
+      this.user = val;
+      this.name = 'name' in this.user ? this.user['name'] : 'Unknown name';
     });
   }
 
