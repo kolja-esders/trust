@@ -68,20 +68,30 @@ export class WelcomePage {
   }
 
   startListening() {
+    if (this.loading) {
+      return;
+    }
+    this.loading = true;
+
     let options = {
       language: this.detectedLanguage,
       showPopup: false,  // Android only
       showPartial: true // iOS only
     };
     this.speechRecognition.startListening(options).subscribe(matches => {
-      this.matches = matches;
-      this.cd.detectChanges();
-      this.navCtrl.push('SelfiePage');
+      this.validateInput(matches);
     }, errors => {
       console.log(errors);
       this.navCtrl.push('SelfiePage');
     });
     this.isRecording = true;
+  }
+
+  validateInput(matches: string[]) {
+    this.matches = matches;
+    this.cd.detectChanges();
+    this.loading = false;
+    this.navCtrl.push('SelfiePage');
   }
 
   apiCall() {

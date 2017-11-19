@@ -57,9 +57,9 @@ export class ProfileOverviewPage {
     this.storage.get('user').then((val) => {
       console.log(val);
       this.user = val;
-      this.name = 'name' in this.user ? this.user['name'] : 'Unknown';
-      this.age = 'age' in this.user ? this.user['age'] : 'Unknown';
-      this.country = 'place' in this.user ? this.user['place'] : 'Unknown';
+      this.name = this.user['name'] || 'Unknown';
+      this.age = this.user['age'] || 'Unknown';
+      this.country = this.user['place'] || 'Unknown';
     });
   }
 

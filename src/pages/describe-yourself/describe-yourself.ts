@@ -53,20 +53,32 @@ export class DescribeYourselfPage {
       this.cd.detectChanges();
       //this.navCtrl.push('SelfiePage');
       console.log(matches);
-
-      this.api.validateSomething(matches[0] as string).subscribe( (response: any) => {
-        this.response = JSON.stringify(response, null, 2);
-        console.log(response);
-        this.storage.set('user', response).then((val) => {
-          this.navCtrl.push('ProfileOverviewPage');
-        });
-        this.loading = false;
-      });
+      this.validateSpeechInput(matches[0] as string);
     }, errors => {
       console.log(errors);
       //this.navCtrl.push('ProfileOverviewPage');
     });
     this.isRecording = true;
+  }
+
+  mockInput() {
+    if (this.loading) {
+      return;
+    }
+    this.loading = true;
+    let text = "my name is john i am 30 years old and i am from spain";
+    this.validateSpeechInput(text);
+  }
+
+  validateSpeechInput(input: string) {
+    this.api.validateSomething(input).subscribe( (response: any) => {
+      this.response = JSON.stringify(response, null, 2);
+      console.log(response);
+      this.storage.set('user', response).then((val) => {
+        this.navCtrl.push('ProfileOverviewPage');
+      });
+      this.loading = false;
+    });
   }
 
   ionViewDidLoad() {

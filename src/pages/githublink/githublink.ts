@@ -38,8 +38,8 @@ export class GithublinkPage {
     this.api.evaluateGitHubAccount(this.gitHubName).subscribe( (response) => {
       console.log(response);
       this.loading = false;
-      this.final_rank = response.rank.value;
-      this.skills = response.quality.tabs.languages;
+      this.final_rank = response["rank"]["value"];
+      this.skills = response["quality"]["tabs"]["languages"];
     });
   }
 
