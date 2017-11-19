@@ -22,7 +22,7 @@ export class GithublinkPage {
   final_rank = null;
   skills = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private api: Api) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private api: Api, private storage: Storage) {
 
   }
 
@@ -37,9 +37,11 @@ export class GithublinkPage {
     this.loading = true;
     this.api.evaluateGitHubAccount(this.gitHubName).subscribe( (response) => {
       console.log(response);
-      this.loading = false;
       this.final_rank = response["rank"]["value"];
       this.skills = response["quality"]["tabs"]["languages"];
+      this.storage.set('evaluation', response).then( () => {
+        this.loading = false;
+      });
     });
   }
 

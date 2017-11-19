@@ -53,14 +53,9 @@
 
   <ion-list ng-if="evaluated" *ngFor="let skill of skills">
 
-    <ion-item-sliding>
-      <ion-item>
+    <ion-item>
         {{skill.name}}
-      </ion-item>
-      <ion-item-options side="right">
-        <button ion-button color="danger" (click)="delete(skill)">Delete</button>
-      </ion-item-options>
-    </ion-item-sliding>
+    </ion-item>
 
   </ion-list>
 
