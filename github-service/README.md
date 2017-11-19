@@ -58,3 +58,21 @@ http://trust-trivago.espend.de/language-extraction?q=Hello%20World
    "age":"26"
 }
 ```
+
+```
+http://trust-trivago.espend.de/sentiment-analysis?q=Mir geht es gut
+http://trust-trivago.espend.de/sentiment-analysis?q=Mir geht es schlecht
+```
+
+```
+{"sentiment":"Positive"}
+{"sentiment":"Negative"}
+```
+
+```
+http://trust-trivago.espend.de/doc-similarity?q=Das Wetter ist gut aber der Schnee schneit vom blauen Himmel
+```
+
+```
+{"acc":0.3952123486027508,"Level":"B1"}
+```
