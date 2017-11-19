@@ -16,18 +16,30 @@
 
 <ion-content padding>
 
-<h4 class="text">What's your GitHub Account?</h4>
-
 <ion-item>
-  <ion-label>Link</ion-label>
-  <ion-input type="text"></ion-input>
+  <ion-label stacked>GitHub Account Name</ion-label>
+  <ion-input type="text" [(ngModel)]="gitHubName"></ion-input>
 </ion-item>
+
+
+  <div padding-vertical>
+    <ion-spinner *ngIf="loading"></ion-spinner>
+    <div *ngIf="final_rank">
+
+      <ion-label stacked>Your GitHub Rank</ion-label>
+      <ion-input type="text" aria-readonly="true" [(ngModel)]="final_rank"></ion-input>
+
+      <ion-label stacked>Your Skill Set</ion-label>
+      <ion-input type="text" aria-readonly="true" [(ngModel)]="skills"></ion-input>
+
+    </div>
+  </div>
 
 </ion-content>
 
 <ion-footer>
   <ion-toolbar>
-    <button large full class="eval-btn" ion-button>
+    <button full class="eval-btn" ion-button (click)="pushLink()">
       Evaluate
     </button>
   </ion-toolbar>

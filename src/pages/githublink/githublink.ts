@@ -18,6 +18,9 @@ import { Api } from '../../providers/api/api';
 export class GithublinkPage {
 
   gitHubName: string = "";
+  loading: boolean = false;
+  final_rank = null;
+  skills = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private api: Api) {
 
@@ -28,8 +31,15 @@ export class GithublinkPage {
   }
 
   pushLink() {
+    if (this.loading) {
+      return;
+    }
+    this.loading = true;
     this.api.evaluateGitHubAccount(this.gitHubName).subscribe( (response) => {
       console.log(response);
+      this.loading = false;
+      this.final_rank = response.rank.value;
+      this.skills = response.quality.tabs.languages;
     });
   }
 
