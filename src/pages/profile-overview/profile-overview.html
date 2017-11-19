@@ -4,10 +4,8 @@
 
   <img class="profileImage" width="200" height="200" src="{{profileImage}}" style="border-radius:50%; object-fit: cover;"/>
 
-  <h1 class="name">{{name}}</h1>
-  <div class="center">Your Description Headline</div>
-  <h1 class="name">{{age}}</h1>
-  <h1 class="name">{{country}}</h1>
+  <h1 class="name">Hi {{name}}</h1>
+  <!--<div class="center">Your Description Headline</div>-->
 
   <div style="height: 1em;"></div>
 
@@ -18,7 +16,20 @@
 
   <div style="height: 0.5em;"></div>
 
-  <div class="container">
+  <ion-card>
+    <ion-card-header>
+      Personal details
+    </ion-card-header>
+
+    <ion-card-content>
+      <div><b>Name:</b> {{name}}</div>
+      <div><b>Age:</b> {{age}}</div>
+      <div><b>Origin country:</b> {{place}}</div>
+      <!--<div>Hobbies: {{}}</div>-->
+    </ion-card-content>
+  </ion-card>
+
+  <div ng-if="evaluated" class="container">
 
     <h3>Your Evaluation</h3>
 
@@ -40,7 +51,7 @@
 
   </div>
 
-  <ion-list *ngFor="let skill of skills">
+  <ion-list ng-if="evaluated" *ngFor="let skill of skills">
 
     <ion-item-sliding>
       <ion-item>

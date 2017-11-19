@@ -21,6 +21,7 @@ export class ProfileOverviewPage {
   country: string;
   age: string;
   user = {};
+  evaluated = false;
 
   profileImage: string;
 
@@ -56,9 +57,9 @@ export class ProfileOverviewPage {
     this.storage.get('user').then((val) => {
       console.log(val);
       this.user = val;
-      this.name = 'name' in this.user ? this.user['name'] : 'Unknown name';
-      this.age = 'age' in this.user ? this.user['age'] : 'Unknown age';
-      this.country = 'country' in this.user ? this.user['country'] : 'Unknown country';
+      this.name = 'name' in this.user ? this.user['name'] : 'Unknown';
+      this.age = 'age' in this.user ? this.user['age'] : 'Unknown';
+      this.country = 'place' in this.user ? this.user['place'] : 'Unknown';
     });
   }
 
