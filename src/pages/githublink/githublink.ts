@@ -15,11 +15,17 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class GithublinkPage {
 
+  gitHubName: string = "";
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad GithublinkPage');
+  }
+
+  pushLink() {
+    console.log(this.gitHubName);
   }
 
 }

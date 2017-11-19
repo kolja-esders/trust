@@ -19,15 +19,15 @@
 <h4 class="text">What's your GitHub Account?</h4>
 
 <ion-item>
-  <ion-label>Link</ion-label>
-  <ion-input type="text"></ion-input>
+  <ion-label stacked>Your GitHub Account Name</ion-label>
+  <ion-input type="text" [(ngModel)]="gitHubName"></ion-input>
 </ion-item>
 
 </ion-content>
 
 <ion-footer>
   <ion-toolbar>
-    <button large full class="eval-btn" ion-button>
+    <button large full class="eval-btn" ion-button (click)="pushLink()">
       Evaluate
     </button>
   </ion-toolbar>
